@@ -10,7 +10,6 @@ import org.andengine.engine.handler.timer.ITimerCallback;
 import org.andengine.engine.handler.timer.TimerHandler;
 import org.andengine.engine.options.EngineOptions;
 import org.andengine.engine.options.ScreenOrientation;
-import org.andengine.engine.options.resolutionpolicy.FillResolutionPolicy;
 import org.andengine.engine.options.resolutionpolicy.RatioResolutionPolicy;
 import org.andengine.entity.modifier.LoopEntityModifier;
 import org.andengine.entity.modifier.RotationModifier;
@@ -31,6 +30,7 @@ import org.andengine.ui.IGameInterface.OnCreateResourcesCallback;
 import org.andengine.ui.IGameInterface.OnCreateSceneCallback;
 import org.andengine.ui.IGameInterface.OnPopulateSceneCallback;
 import org.andengine.util.debug.Debug;
+
 public class wallpaper extends BaseLiveWallpaperService {
     private static int CAMERA_HEIGHT = 800;
     private static int CAMERA_WIDTH = 600;
@@ -82,7 +82,7 @@ public class wallpaper extends BaseLiveWallpaperService {
     ITextureRegion ltgreenplanet;
     BitmapTextureAtlas ltgreenplanetTexture;
     private Camera mCamera;
-    protected final Random mRandom;
+    protected final Random mRandom = new Random(RANDOM_SEED);
     private Scene mScene;
     ITextureRegion moon;
     BitmapTextureAtlas moonTexture;
@@ -92,22 +92,22 @@ public class wallpaper extends BaseLiveWallpaperService {
     BitmapTextureAtlas neongreenplanetTexture;
     ITextureRegion orangeplanet;
     BitmapTextureAtlas orangeplanetTexture;
-    Random random;
+    Random random = new Random(System.nanoTime());
     ITextureRegion redplanet;
     BitmapTextureAtlas redplanetTexture;
-    private Ball rndball1;
-    private Ball rndball2;
-    private Ball rndball3;
-    private Ball rndball4;
-    private Ball rndball5;
-    private Ball rndball6;
-    private Ball rndball7;
-    private Ball rndball8;
-    private Ball rndball9;
-    private Ball rndball10;
-    private Ball rndball11;
-    private Ball rndball12;
-    private Ball rndball13;
+    private Ball rndball1 = null;
+    private Ball rndball2 = null;
+    private Ball rndball3 = null;
+    private Ball rndball4 = null;
+    private Ball rndball5 = null;
+    private Ball rndball6 = null;
+    private Ball rndball7 = null;
+    private Ball rndball8 = null;
+    private Ball rndball9 = null;
+    private Ball rndball10 = null;
+    private Ball rndball11 = null;
+    private Ball rndball12 = null;
+    private Ball rndball13 = null;
     ITextureRegion saturn;
     BitmapTextureAtlas saturnTexture;
     ITextureRegion star;
@@ -119,624 +119,20 @@ public class wallpaper extends BaseLiveWallpaperService {
     ITextureRegion yellowplanet;
     BitmapTextureAtlas yellowplanetTexture;
 
-    /* renamed from: own.planetswallpaperandengine.wallpaper.1 */
-    class C02981 implements ITimerCallback {
-
-        /* renamed from: own.planetswallpaperandengine.wallpaper.1.1 */
-        class C01671 implements Runnable {
-            C01671() {
-            }
-
-            public void run() {
-                if (wallpaper.this.rndball1 == null) {
-                    Debug.i(wallpaper.TAG, "rndball1 is null");
-                } else {
-                    Debug.i(wallpaper.TAG, "removing rndball1");
-                    wallpaper.this.mScene.detachChild(wallpaper.this.rndball1);
-                    wallpaper.this.rndball1.detachSelf();
-                    wallpaper.this.rndball1.dispose();
-                    wallpaper.this.rndball1 = null;
-                }
-                Random rand1 = new Random();
-                Random rand2 = new Random();
-                int[] ROTNUMBERS = new int[]{0, 360};
-                int randrot1 = ROTNUMBERS[rand1.nextInt(ROTNUMBERS.length)];
-                int randrot2 = ROTNUMBERS[rand2.nextInt(ROTNUMBERS.length)];
-                if (randrot1 == 0 && randrot2 == 0) {
-                    randrot1 = 360;
-                }
-                if (randrot1 == 360 && randrot2 == 360) {
-                    randrot1 = 0;
-                }
-                int SpriteNumber = new Random().nextInt(wallpaper.PLANETS_COUNT) + 1;
-                Debug.i(wallpaper.TAG, "RandSpriteNumber: " + SpriteNumber);
-                if (SpriteNumber == 1) {
-                    wallpaper.this.rndball1 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.neongreenplanet, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 2) {
-                    wallpaper.this.rndball1 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.blueplanet, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 3) {
-                    wallpaper.this.rndball1 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.cyanplanet, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 4) {
-                    wallpaper.this.rndball1 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.ltblueplanet, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 5) {
-                    wallpaper.this.rndball1 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.bluepurpleplanet, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 6) {
-                    wallpaper.this.rndball1 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.redplanet, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 7) {
-                    wallpaper.this.rndball1 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.yellowplanet, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == wallpaper.SATURNS_COUNT) {
-                    wallpaper.this.rndball1 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.orangeplanet, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 9) {
-                    wallpaper.this.rndball1 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.whiteplanet, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 10) {
-                    wallpaper.this.rndball1 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.grayplanet, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 11) {
-                    wallpaper.this.rndball1 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.greenplanet, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 12) {
-                    wallpaper.this.rndball1 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.ltgreenplanet, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 13) {
-                    wallpaper.this.rndball1 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.bluemoon, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 14) {
-                    wallpaper.this.rndball1 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.saturn, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 15) {
-                    wallpaper.this.rndball1 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.firefly, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 16) {
-                    wallpaper.this.rndball1 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.fly, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 17) {
-                    wallpaper.this.rndball1 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.moon, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 18) {
-                    wallpaper.this.rndball1 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.star, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 19) {
-                    wallpaper.this.rndball1 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.alien3, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 20) {
-                    wallpaper.this.rndball1 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.alien4, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 21) {
-                    wallpaper.this.rndball1 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.ufo, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 22) {
-                    wallpaper.this.rndball1 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.light, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 23) {
-                    wallpaper.this.rndball1 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.lighton, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 24) {
-                    wallpaper.this.rndball1 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.lightoff, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 25) {
-                    wallpaper.this.rndball1 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.mouse, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 26) {
-                    wallpaper.this.rndball1 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.asteroid1, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 27) {
-                    wallpaper.this.rndball1 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.asteroid2, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 28) {
-                    wallpaper.this.rndball1 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.asteroid3, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 29) {
-                    wallpaper.this.rndball1 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.asteroid4, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == wallpaper.PLANETS_COUNT) {
-                    wallpaper.this.rndball1 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.asteroid5, wallpaper.this.getVertexBufferObjectManager());
-                }
-                PhysicsHandler physicsHandler = new PhysicsHandler(wallpaper.this.rndball1);
-                wallpaper.this.rndball1.registerUpdateHandler(physicsHandler);
-                wallpaper.this.rndball1.registerEntityModifier(new LoopEntityModifier(new RotationModifier(30.0f, (float) randrot1, (float) randrot2)));
-                physicsHandler.setVelocity(10.0f * (wallpaper.this.random.nextFloat() - 0.5f), 10.0f * (wallpaper.this.random.nextFloat() - 0.5f));
-                wallpaper.this.mScene.attachChild(wallpaper.this.rndball1);
-            }
-        }
-
-        /* renamed from: own.planetswallpaperandengine.wallpaper.1.2 */
-        class C01682 implements Runnable {
-            C01682() {
-            }
-
-            public void run() {
-                if (wallpaper.this.rndball2 == null) {
-                    Debug.i(wallpaper.TAG, "rndball2 is null");
-                } else {
-                    Debug.i(wallpaper.TAG, "removing rndball2");
-                    wallpaper.this.mScene.detachChild(wallpaper.this.rndball2);
-                    wallpaper.this.rndball2.detachSelf();
-                    wallpaper.this.rndball2.dispose();
-                    wallpaper.this.rndball2 = null;
-                }
-                Random rand1 = new Random();
-                Random rand2 = new Random();
-                int[] ROTNUMBERS = new int[]{0, 360};
-                int randrot1 = ROTNUMBERS[rand1.nextInt(ROTNUMBERS.length)];
-                int randrot2 = ROTNUMBERS[rand2.nextInt(ROTNUMBERS.length)];
-                if (randrot1 == 0 && randrot2 == 0) {
-                    randrot1 = 360;
-                }
-                if (randrot1 == 360 && randrot2 == 360) {
-                    randrot1 = 0;
-                }
-                int SpriteNumber = new Random().nextInt(wallpaper.PLANETS_COUNT) + 1;
-                Debug.i(wallpaper.TAG, "RandSpriteNumber: " + SpriteNumber);
-                if (SpriteNumber == 1) {
-                    wallpaper.this.rndball2 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.neongreenplanet, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 2) {
-                    wallpaper.this.rndball2 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.blueplanet, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 3) {
-                    wallpaper.this.rndball2 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.cyanplanet, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 4) {
-                    wallpaper.this.rndball2 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.ltblueplanet, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 5) {
-                    wallpaper.this.rndball2 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.bluepurpleplanet, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 6) {
-                    wallpaper.this.rndball2 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.redplanet, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 7) {
-                    wallpaper.this.rndball2 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.yellowplanet, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == wallpaper.SATURNS_COUNT) {
-                    wallpaper.this.rndball2 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.orangeplanet, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 9) {
-                    wallpaper.this.rndball2 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.whiteplanet, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 10) {
-                    wallpaper.this.rndball2 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.grayplanet, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 11) {
-                    wallpaper.this.rndball2 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.greenplanet, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 12) {
-                    wallpaper.this.rndball2 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.ltgreenplanet, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 13) {
-                    wallpaper.this.rndball2 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.bluemoon, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 14) {
-                    wallpaper.this.rndball2 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.saturn, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 15) {
-                    wallpaper.this.rndball2 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.firefly, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 16) {
-                    wallpaper.this.rndball2 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.fly, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 17) {
-                    wallpaper.this.rndball2 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.moon, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 18) {
-                    wallpaper.this.rndball2 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.star, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 19) {
-                    wallpaper.this.rndball2 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.alien3, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 20) {
-                    wallpaper.this.rndball2 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.alien4, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 21) {
-                    wallpaper.this.rndball2 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.ufo, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 22) {
-                    wallpaper.this.rndball2 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.light, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 23) {
-                    wallpaper.this.rndball2 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.lighton, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 24) {
-                    wallpaper.this.rndball2 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.lightoff, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 25) {
-                    wallpaper.this.rndball2 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.mouse, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 26) {
-                    wallpaper.this.rndball2 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.asteroid1, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 27) {
-                    wallpaper.this.rndball2 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.asteroid2, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 28) {
-                    wallpaper.this.rndball2 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.asteroid3, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 29) {
-                    wallpaper.this.rndball2 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.asteroid4, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == wallpaper.PLANETS_COUNT) {
-                    wallpaper.this.rndball2 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.asteroid5, wallpaper.this.getVertexBufferObjectManager());
-                }
-                PhysicsHandler physicsHandler = new PhysicsHandler(wallpaper.this.rndball2);
-                wallpaper.this.rndball2.registerUpdateHandler(physicsHandler);
-                wallpaper.this.rndball2.registerEntityModifier(new LoopEntityModifier(new RotationModifier(30.0f, (float) randrot1, (float) randrot2)));
-                physicsHandler.setVelocity(10.0f * (wallpaper.this.random.nextFloat() - 0.5f), 10.0f * (wallpaper.this.random.nextFloat() - 0.5f));
-                wallpaper.this.mScene.attachChild(wallpaper.this.rndball2);
-            }
-        }
-
-        /* renamed from: own.planetswallpaperandengine.wallpaper.1.3 */
-        class C01693 implements Runnable {
-            C01693() {
-            }
-
-            public void run() {
-                if (wallpaper.this.rndball3 == null) {
-                    Debug.i(wallpaper.TAG, "rndball3 is null");
-                } else {
-                    Debug.i(wallpaper.TAG, "removing rndball3");
-                    wallpaper.this.mScene.detachChild(wallpaper.this.rndball3);
-                    wallpaper.this.rndball3.detachSelf();
-                    wallpaper.this.rndball3.dispose();
-                    wallpaper.this.rndball3 = null;
-                }
-                Random rand1 = new Random();
-                Random rand2 = new Random();
-                int[] ROTNUMBERS = new int[]{0, 360};
-                int randrot1 = ROTNUMBERS[rand1.nextInt(ROTNUMBERS.length)];
-                int randrot2 = ROTNUMBERS[rand2.nextInt(ROTNUMBERS.length)];
-                if (randrot1 == 0 && randrot2 == 0) {
-                    randrot1 = 360;
-                }
-                if (randrot1 == 360 && randrot2 == 360) {
-                    randrot1 = 0;
-                }
-                int SpriteNumber = new Random().nextInt(wallpaper.PLANETS_COUNT) + 1;
-                Debug.i(wallpaper.TAG, "RandSpriteNumber: " + SpriteNumber);
-                if (SpriteNumber == 1) {
-                    wallpaper.this.rndball3 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.neongreenplanet, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 2) {
-                    wallpaper.this.rndball3 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.blueplanet, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 3) {
-                    wallpaper.this.rndball3 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.cyanplanet, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 4) {
-                    wallpaper.this.rndball3 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.ltblueplanet, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 5) {
-                    wallpaper.this.rndball3 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.bluepurpleplanet, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 6) {
-                    wallpaper.this.rndball3 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.redplanet, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 7) {
-                    wallpaper.this.rndball3 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.yellowplanet, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == wallpaper.SATURNS_COUNT) {
-                    wallpaper.this.rndball3 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.orangeplanet, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 9) {
-                    wallpaper.this.rndball3 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.whiteplanet, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 10) {
-                    wallpaper.this.rndball3 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.grayplanet, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 11) {
-                    wallpaper.this.rndball3 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.greenplanet, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 12) {
-                    wallpaper.this.rndball3 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.ltgreenplanet, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 13) {
-                    wallpaper.this.rndball3 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.bluemoon, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 14) {
-                    wallpaper.this.rndball3 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.saturn, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 15) {
-                    wallpaper.this.rndball3 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.firefly, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 16) {
-                    wallpaper.this.rndball3 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.fly, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 17) {
-                    wallpaper.this.rndball3 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.moon, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 18) {
-                    wallpaper.this.rndball3 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.star, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 19) {
-                    wallpaper.this.rndball3 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.alien3, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 20) {
-                    wallpaper.this.rndball3 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.alien4, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 21) {
-                    wallpaper.this.rndball3 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.ufo, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 22) {
-                    wallpaper.this.rndball3 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.light, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 23) {
-                    wallpaper.this.rndball3 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.lighton, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 24) {
-                    wallpaper.this.rndball3 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.lightoff, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 25) {
-                    wallpaper.this.rndball3 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.mouse, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 26) {
-                    wallpaper.this.rndball3 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.asteroid1, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 27) {
-                    wallpaper.this.rndball3 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.asteroid2, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 28) {
-                    wallpaper.this.rndball3 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.asteroid3, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 29) {
-                    wallpaper.this.rndball3 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.asteroid4, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == wallpaper.PLANETS_COUNT) {
-                    wallpaper.this.rndball3 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.asteroid5, wallpaper.this.getVertexBufferObjectManager());
-                }
-                PhysicsHandler physicsHandler = new PhysicsHandler(wallpaper.this.rndball3);
-                wallpaper.this.rndball3.registerUpdateHandler(physicsHandler);
-                wallpaper.this.rndball3.registerEntityModifier(new LoopEntityModifier(new RotationModifier(30.0f, (float) randrot1, (float) randrot2)));
-                physicsHandler.setVelocity(10.0f * (wallpaper.this.random.nextFloat() - 0.5f), 10.0f * (wallpaper.this.random.nextFloat() - 0.5f));
-                wallpaper.this.mScene.attachChild(wallpaper.this.rndball3);
-            }
-        }
-
-        /* renamed from: own.planetswallpaperandengine.wallpaper.1.4 */
-        class C01704 implements Runnable {
-            C01704() {
-            }
-
-            public void run() {
-                if (wallpaper.this.rndball4 == null) {
-                    Debug.i(wallpaper.TAG, "rndball4 is null");
-                } else {
-                    Debug.i(wallpaper.TAG, "removing rndball4");
-                    wallpaper.this.mScene.detachChild(wallpaper.this.rndball4);
-                    wallpaper.this.rndball4.detachSelf();
-                    wallpaper.this.rndball4.dispose();
-                    wallpaper.this.rndball4 = null;
-                }
-                Random rand1 = new Random();
-                Random rand2 = new Random();
-                int[] ROTNUMBERS = new int[]{0, 360};
-                int randrot1 = ROTNUMBERS[rand1.nextInt(ROTNUMBERS.length)];
-                int randrot2 = ROTNUMBERS[rand2.nextInt(ROTNUMBERS.length)];
-                if (randrot1 == 0 && randrot2 == 0) {
-                    randrot1 = 360;
-                }
-                if (randrot1 == 360 && randrot2 == 360) {
-                    randrot1 = 0;
-                }
-                int SpriteNumber = new Random().nextInt(wallpaper.PLANETS_COUNT) + 1;
-                Debug.i(wallpaper.TAG, "RandSpriteNumber: " + SpriteNumber);
-                if (SpriteNumber == 1) {
-                    wallpaper.this.rndball4 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.neongreenplanet, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 2) {
-                    wallpaper.this.rndball4 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.blueplanet, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 3) {
-                    wallpaper.this.rndball4 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.cyanplanet, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 4) {
-                    wallpaper.this.rndball4 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.ltblueplanet, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 5) {
-                    wallpaper.this.rndball4 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.bluepurpleplanet, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 6) {
-                    wallpaper.this.rndball4 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.redplanet, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 7) {
-                    wallpaper.this.rndball4 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.yellowplanet, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == wallpaper.SATURNS_COUNT) {
-                    wallpaper.this.rndball4 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.orangeplanet, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 9) {
-                    wallpaper.this.rndball4 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.whiteplanet, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 10) {
-                    wallpaper.this.rndball4 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.grayplanet, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 11) {
-                    wallpaper.this.rndball4 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.greenplanet, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 12) {
-                    wallpaper.this.rndball4 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.ltgreenplanet, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 13) {
-                    wallpaper.this.rndball4 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.bluemoon, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 14) {
-                    wallpaper.this.rndball4 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.saturn, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 15) {
-                    wallpaper.this.rndball4 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.firefly, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 16) {
-                    wallpaper.this.rndball4 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.fly, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 17) {
-                    wallpaper.this.rndball4 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.moon, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 18) {
-                    wallpaper.this.rndball4 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.star, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 19) {
-                    wallpaper.this.rndball4 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.alien3, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 20) {
-                    wallpaper.this.rndball4 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.alien4, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 21) {
-                    wallpaper.this.rndball4 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.ufo, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 22) {
-                    wallpaper.this.rndball4 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.light, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 23) {
-                    wallpaper.this.rndball4 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.lighton, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 24) {
-                    wallpaper.this.rndball4 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.lightoff, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 25) {
-                    wallpaper.this.rndball4 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.mouse, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 26) {
-                    wallpaper.this.rndball4 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.asteroid1, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 27) {
-                    wallpaper.this.rndball4 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.asteroid2, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 28) {
-                    wallpaper.this.rndball4 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.asteroid3, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 29) {
-                    wallpaper.this.rndball4 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.asteroid4, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == wallpaper.PLANETS_COUNT) {
-                    wallpaper.this.rndball4 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.asteroid5, wallpaper.this.getVertexBufferObjectManager());
-                }
-                PhysicsHandler physicsHandler = new PhysicsHandler(wallpaper.this.rndball4);
-                wallpaper.this.rndball4.registerUpdateHandler(physicsHandler);
-                wallpaper.this.rndball4.registerEntityModifier(new LoopEntityModifier(new RotationModifier(30.0f, (float) randrot1, (float) randrot2)));
-                physicsHandler.setVelocity(10.0f * (wallpaper.this.random.nextFloat() - 0.5f), 10.0f * (wallpaper.this.random.nextFloat() - 0.5f));
-                wallpaper.this.mScene.attachChild(wallpaper.this.rndball4);
-            }
-        }
-
-        /* renamed from: own.planetswallpaperandengine.wallpaper.1.5 */
-        class C01715 implements Runnable {
-            C01715() {
-            }
-
-            public void run() {
-                if (wallpaper.this.rndball5 == null) {
-                    Debug.i(wallpaper.TAG, "rndball5 is null");
-                } else {
-                    Debug.i(wallpaper.TAG, "removing rndball5");
-                    wallpaper.this.mScene.detachChild(wallpaper.this.rndball5);
-                    wallpaper.this.rndball5.detachSelf();
-                    wallpaper.this.rndball5.dispose();
-                    wallpaper.this.rndball5 = null;
-                }
-                Random rand1 = new Random();
-                Random rand2 = new Random();
-                int[] ROTNUMBERS = new int[]{0, 360};
-                int randrot1 = ROTNUMBERS[rand1.nextInt(ROTNUMBERS.length)];
-                int randrot2 = ROTNUMBERS[rand2.nextInt(ROTNUMBERS.length)];
-                if (randrot1 == 0 && randrot2 == 0) {
-                    randrot1 = 360;
-                }
-                if (randrot1 == 360 && randrot2 == 360) {
-                    randrot1 = 0;
-                }
-                int SpriteNumber = new Random().nextInt(wallpaper.PLANETS_COUNT) + 1;
-                Debug.i(wallpaper.TAG, "RandSpriteNumber: " + SpriteNumber);
-                if (SpriteNumber == 1) {
-                    wallpaper.this.rndball5 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.neongreenplanet, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 2) {
-                    wallpaper.this.rndball5 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.blueplanet, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 3) {
-                    wallpaper.this.rndball5 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.cyanplanet, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 4) {
-                    wallpaper.this.rndball5 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.ltblueplanet, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 5) {
-                    wallpaper.this.rndball5 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.bluepurpleplanet, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 6) {
-                    wallpaper.this.rndball5 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.redplanet, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 7) {
-                    wallpaper.this.rndball5 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.yellowplanet, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == wallpaper.SATURNS_COUNT) {
-                    wallpaper.this.rndball5 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.orangeplanet, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 9) {
-                    wallpaper.this.rndball5 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.whiteplanet, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 10) {
-                    wallpaper.this.rndball5 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.grayplanet, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 11) {
-                    wallpaper.this.rndball5 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.greenplanet, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 12) {
-                    wallpaper.this.rndball5 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.ltgreenplanet, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 13) {
-                    wallpaper.this.rndball5 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.bluemoon, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 14) {
-                    wallpaper.this.rndball5 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.saturn, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 15) {
-                    wallpaper.this.rndball5 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.firefly, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 16) {
-                    wallpaper.this.rndball5 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.fly, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 17) {
-                    wallpaper.this.rndball5 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.moon, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 18) {
-                    wallpaper.this.rndball5 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.star, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 19) {
-                    wallpaper.this.rndball5 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.alien3, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 20) {
-                    wallpaper.this.rndball5 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.alien4, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 21) {
-                    wallpaper.this.rndball5 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.ufo, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 22) {
-                    wallpaper.this.rndball5 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.light, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 23) {
-                    wallpaper.this.rndball5 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.lighton, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 24) {
-                    wallpaper.this.rndball5 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.lightoff, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 25) {
-                    wallpaper.this.rndball5 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.mouse, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 26) {
-                    wallpaper.this.rndball5 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.asteroid1, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 27) {
-                    wallpaper.this.rndball5 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.asteroid2, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 28) {
-                    wallpaper.this.rndball5 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.asteroid3, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 29) {
-                    wallpaper.this.rndball5 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.asteroid4, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == wallpaper.PLANETS_COUNT) {
-                    wallpaper.this.rndball5 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.asteroid5, wallpaper.this.getVertexBufferObjectManager());
-                }
-                PhysicsHandler physicsHandler = new PhysicsHandler(wallpaper.this.rndball5);
-                wallpaper.this.rndball5.registerUpdateHandler(physicsHandler);
-                wallpaper.this.rndball5.registerEntityModifier(new LoopEntityModifier(new RotationModifier(30.0f, (float) randrot1, (float) randrot2)));
-                physicsHandler.setVelocity(10.0f * (wallpaper.this.random.nextFloat() - 0.5f), 10.0f * (wallpaper.this.random.nextFloat() - 0.5f));
-                wallpaper.this.mScene.attachChild(wallpaper.this.rndball5);
-            }
-        }
-
-        /* renamed from: own.planetswallpaperandengine.wallpaper.1.6 */
-        class C01726 implements Runnable {
-            C01726() {
-            }
-
-            public void run() {
-                if (wallpaper.this.rndball6 == null) {
-                    Debug.i(wallpaper.TAG, "rndball6 is null");
-                } else {
-                    Debug.i(wallpaper.TAG, "removing rndball6");
-                    wallpaper.this.mScene.detachChild(wallpaper.this.rndball6);
-                    wallpaper.this.rndball6.detachSelf();
-                    wallpaper.this.rndball6.dispose();
-                    wallpaper.this.rndball6 = null;
-                }
-                Random rand1 = new Random();
-                Random rand2 = new Random();
-                int[] ROTNUMBERS = new int[]{0, 360};
-                int randrot1 = ROTNUMBERS[rand1.nextInt(ROTNUMBERS.length)];
-                int randrot2 = ROTNUMBERS[rand2.nextInt(ROTNUMBERS.length)];
-                if (randrot1 == 0 && randrot2 == 0) {
-                    randrot1 = 360;
-                }
-                if (randrot1 == 360 && randrot2 == 360) {
-                    randrot1 = 0;
-                }
-                int SpriteNumber = new Random().nextInt(wallpaper.PLANETS_COUNT) + 1;
-                Debug.i(wallpaper.TAG, "RandSpriteNumber: " + SpriteNumber);
-                if (SpriteNumber == 1) {
-                    wallpaper.this.rndball6 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.neongreenplanet, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 2) {
-                    wallpaper.this.rndball6 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.blueplanet, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 3) {
-                    wallpaper.this.rndball6 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.cyanplanet, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 4) {
-                    wallpaper.this.rndball6 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.ltblueplanet, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 5) {
-                    wallpaper.this.rndball6 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.bluepurpleplanet, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 6) {
-                    wallpaper.this.rndball6 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.redplanet, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 7) {
-                    wallpaper.this.rndball6 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.yellowplanet, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == wallpaper.SATURNS_COUNT) {
-                    wallpaper.this.rndball6 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.orangeplanet, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 9) {
-                    wallpaper.this.rndball6 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.whiteplanet, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 10) {
-                    wallpaper.this.rndball6 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.grayplanet, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 11) {
-                    wallpaper.this.rndball6 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.greenplanet, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 12) {
-                    wallpaper.this.rndball6 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.ltgreenplanet, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 13) {
-                    wallpaper.this.rndball6 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.bluemoon, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 14) {
-                    wallpaper.this.rndball6 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.saturn, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 15) {
-                    wallpaper.this.rndball6 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.firefly, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 16) {
-                    wallpaper.this.rndball6 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.fly, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 17) {
-                    wallpaper.this.rndball6 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.moon, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 18) {
-                    wallpaper.this.rndball6 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.star, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 19) {
-                    wallpaper.this.rndball6 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.alien3, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 20) {
-                    wallpaper.this.rndball6 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.alien4, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 21) {
-                    wallpaper.this.rndball6 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.ufo, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 22) {
-                    wallpaper.this.rndball6 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.light, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 23) {
-                    wallpaper.this.rndball6 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.lighton, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 24) {
-                    wallpaper.this.rndball6 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.lightoff, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 25) {
-                    wallpaper.this.rndball6 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.mouse, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 26) {
-                    wallpaper.this.rndball6 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.asteroid1, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 27) {
-                    wallpaper.this.rndball6 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.asteroid2, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 28) {
-                    wallpaper.this.rndball6 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.asteroid3, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == 29) {
-                    wallpaper.this.rndball6 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.asteroid4, wallpaper.this.getVertexBufferObjectManager());
-                } else if (SpriteNumber == wallpaper.PLANETS_COUNT) {
-                    wallpaper.this.rndball6 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.asteroid5, wallpaper.this.getVertexBufferObjectManager());
-                }
-                PhysicsHandler physicsHandler = new PhysicsHandler(wallpaper.this.rndball6);
-                wallpaper.this.rndball6.registerUpdateHandler(physicsHandler);
-                wallpaper.this.rndball6.registerEntityModifier(new LoopEntityModifier(new RotationModifier(30.0f, (float) randrot1, (float) randrot2)));
-                physicsHandler.setVelocity(10.0f * (wallpaper.this.random.nextFloat() - 0.5f), 10.0f * (wallpaper.this.random.nextFloat() - 0.5f));
-                wallpaper.this.mScene.attachChild(wallpaper.this.rndball6);
-            }
-        }
-
-        C02981() {
-        }
-
-        public void onTimePassed(TimerHandler pTimerHandler) {
-            wallpaper.this.mEngine.runOnUpdateThread(new C01671());
-            wallpaper.this.mEngine.runOnUpdateThread(new C01682());
-            wallpaper.this.mEngine.runOnUpdateThread(new C01693());
-            wallpaper.this.mEngine.runOnUpdateThread(new C01704());
-            wallpaper.this.mEngine.runOnUpdateThread(new C01715());
-            wallpaper.this.mEngine.runOnUpdateThread(new C01726());
-        }
-    }
-
-
-
     protected class MyBaseWallpaperGLEngine extends GLEngine {
         private ConfigChooser mConfigChooser;
         private EngineRenderer mEngineRenderer;
 
         public MyBaseWallpaperGLEngine(IRendererListener pRendererListener) {
             super();
-
             if (this.mConfigChooser == null) {
                 wallpaper.this.mEngine.getEngineOptions().getRenderOptions().setMultiSampling(false);
                 this.mConfigChooser = new ConfigChooser(wallpaper.this.mEngine.getEngineOptions().getRenderOptions().isMultiSampling());
             }
-
-
             setEGLConfigChooser(this.mConfigChooser);
             this.mEngineRenderer = new EngineRenderer(wallpaper.this.mEngine, this.mConfigChooser, pRendererListener);
             setRenderer(this.mEngineRenderer);
             setRenderMode(1);
-
         }
 
         public Bundle onCommand(String pAction, int pX, int pY, int pZ, Bundle pExtras, boolean pResultRequested) {
@@ -765,13 +161,11 @@ public class wallpaper extends BaseLiveWallpaperService {
     }
 
     private static class Ball extends Sprite {
-        private final PhysicsHandler mPhysicsHandler;
-        Random random;
+        private final PhysicsHandler mPhysicsHandler = new PhysicsHandler(this);
+        Random random = new Random(System.nanoTime());
 
         public Ball(float pX, float pY, ITextureRegion pTextureRegion, VertexBufferObjectManager pVertexBufferObjectManager) {
             super(pX, pY, pTextureRegion, pVertexBufferObjectManager);
-            this.random = new Random(System.nanoTime());
-            this.mPhysicsHandler = new PhysicsHandler(this);
             registerUpdateHandler(this.mPhysicsHandler);
             this.mPhysicsHandler.setVelocity(wallpaper.DEMO_VELOCITY, wallpaper.DEMO_VELOCITY);
         }
@@ -792,13 +186,11 @@ public class wallpaper extends BaseLiveWallpaperService {
     }
 
     private static class RandBall extends Sprite {
-        private final PhysicsHandler mPhysicsHandler;
-        Random random;
+        private final PhysicsHandler mPhysicsHandler = new PhysicsHandler(this);
+        Random random = new Random(System.nanoTime());
 
         public RandBall(float pX, float pY, ITextureRegion pTextureRegion, VertexBufferObjectManager pVertexBufferObjectManager) {
             super(pX, pY, pTextureRegion, pVertexBufferObjectManager);
-            this.random = new Random(System.nanoTime());
-            this.mPhysicsHandler = new PhysicsHandler(this);
             registerUpdateHandler(this.mPhysicsHandler);
         }
 
@@ -817,29 +209,9 @@ public class wallpaper extends BaseLiveWallpaperService {
         }
     }
 
-    public wallpaper() {
-        this.mRandom = new Random(RANDOM_SEED);
-        this.random = new Random(System.nanoTime());
-        this.rndball1 = null;
-        this.rndball2 = null;
-        this.rndball3 = null;
-        this.rndball4 = null;
-        this.rndball5 = null;
-        this.rndball6 = null;
-        this.rndball7 = null;
-        this.rndball8 = null;
-        this.rndball9 = null;
-        this.rndball10 = null;
-        this.rndball11 = null;
-        this.rndball12 = null;
-        this.rndball13 = null;
-    }
-
-
     public EngineOptions onCreateEngineOptions() {
         this.mCamera = new Camera(0.0f, 0.0f, (float) CAMERA_WIDTH, (float) CAMERA_HEIGHT);
-        return new EngineOptions(true, ScreenOrientation.PORTRAIT_FIXED, new FillResolutionPolicy(), this.mCamera);
-        ///return new EngineOptions(true, ScreenOrientation.PORTRAIT_FIXED, new RatioResolutionPolicy((float) CAMERA_WIDTH, (float) CAMERA_HEIGHT), this.mCamera);
+        return new EngineOptions(true, ScreenOrientation.PORTRAIT_FIXED, new RatioResolutionPolicy((float) CAMERA_WIDTH, (float) CAMERA_HEIGHT), this.mCamera);
     }
 
     public void onCreateResources(OnCreateResourcesCallback pOnCreateResourcesCallback) {
@@ -942,15 +314,20 @@ public class wallpaper extends BaseLiveWallpaperService {
 
     public void onCreateScene(OnCreateSceneCallback pOnCreateSceneCallback) {
         int i;
+        Random rand1;
+        Random rand2;
+        int[] ROTNUMBERS;
+        int randrot1;
+        int randrot2;
+        PhysicsHandler physicsHandler;
         this.mScene = new Scene();
         this.mScene.setBackground(new SpriteBackground(new Sprite(0.0f, -400.0f, this.background, getVertexBufferObjectManager())));
-
         for (i = 0; i < PLANETS_COUNT; i++) {
-            Random rand1 = new Random();
-            Random rand2 = new Random();
-            int[] ROTNUMBERS = new int[]{0, 360};
-            int randrot1 = ROTNUMBERS[rand1.nextInt(ROTNUMBERS.length)];
-            int randrot2 = ROTNUMBERS[rand2.nextInt(ROTNUMBERS.length)];
+            rand1 = new Random();
+            rand2 = new Random();
+            ROTNUMBERS = new int[]{0, 360};
+            randrot1 = ROTNUMBERS[rand1.nextInt(ROTNUMBERS.length)];
+            randrot2 = ROTNUMBERS[rand2.nextInt(ROTNUMBERS.length)];
             if (randrot1 == 0 && randrot2 == 0) {
                 randrot1 = 360;
             }
@@ -958,18 +335,18 @@ public class wallpaper extends BaseLiveWallpaperService {
                 randrot1 = 0;
             }
             Ball ball = new Ball(this.random.nextFloat() * ((float) CAMERA_WIDTH), this.random.nextFloat() * ((float) CAMERA_HEIGHT), this.neongreenplanet, getVertexBufferObjectManager());
-            PhysicsHandler physicsHandler = new PhysicsHandler(ball);
+            physicsHandler = new PhysicsHandler(ball);
             ball.registerUpdateHandler(physicsHandler);
             ball.registerEntityModifier(new LoopEntityModifier(new RotationModifier(30.0f, (float) randrot1, (float) randrot2)));
             physicsHandler.setVelocity(10.0f * (this.random.nextFloat() - 0.5f), 10.0f * (this.random.nextFloat() - 0.5f));
             this.mScene.attachChild(ball);
         }
         for (i = 0; i < SATURNS_COUNT; i++) {
-            Random rand1 = new Random();
-            Random rand2 = new Random();
-            int[] ROTNUMBERS = new int[]{0, 360};
-            int randrot1 = ROTNUMBERS[rand1.nextInt(ROTNUMBERS.length)];
-            int randrot2 = ROTNUMBERS[rand2.nextInt(ROTNUMBERS.length)];
+            rand1 = new Random();
+            rand2 = new Random();
+            ROTNUMBERS = new int[]{0, 360};
+            randrot1 = ROTNUMBERS[rand1.nextInt(ROTNUMBERS.length)];
+            randrot2 = ROTNUMBERS[rand2.nextInt(ROTNUMBERS.length)];
             if (randrot1 == 0 && randrot2 == 0) {
                 randrot1 = 360;
             }
@@ -977,13 +354,568 @@ public class wallpaper extends BaseLiveWallpaperService {
                 randrot1 = 0;
             }
             Ball saturnball = new Ball(this.random.nextFloat() * ((float) CAMERA_WIDTH), this.random.nextFloat() * ((float) CAMERA_HEIGHT), this.saturn, getVertexBufferObjectManager());
-            PhysicsHandler physicsHandler = new PhysicsHandler(saturnball);
+            physicsHandler = new PhysicsHandler(saturnball);
             saturnball.registerUpdateHandler(physicsHandler);
             saturnball.registerEntityModifier(new LoopEntityModifier(new RotationModifier(30.0f, (float) randrot1, (float) randrot2)));
             physicsHandler.setVelocity(10.0f * (this.random.nextFloat() - 0.5f), 10.0f * (this.random.nextFloat() - 0.5f));
             this.mScene.attachChild(saturnball);
         }
-        this.mScene.registerUpdateHandler(new TimerHandler(103.0f, true, new C02981()));
+        this.mScene.registerUpdateHandler(new TimerHandler(103.0f, true, new ITimerCallback() {
+            public void onTimePassed(TimerHandler pTimerHandler) {
+                wallpaper.this.mEngine.runOnUpdateThread(new Runnable() {
+                    public void run() {
+                        if (wallpaper.this.rndball1 == null) {
+                            Debug.d(wallpaper.TAG, "rndball1 is null");
+                        } else {
+                            Debug.d(wallpaper.TAG, "removing rndball1");
+                            wallpaper.this.mScene.detachChild(wallpaper.this.rndball1);
+                            wallpaper.this.rndball1.detachSelf();
+                            wallpaper.this.rndball1.dispose();
+                            wallpaper.this.rndball1 = null;
+                        }
+                        Random rand1 = new Random();
+                        Random rand2 = new Random();
+                        int[] ROTNUMBERS = new int[]{0, 360};
+                        int randrot1 = ROTNUMBERS[rand1.nextInt(ROTNUMBERS.length)];
+                        int randrot2 = ROTNUMBERS[rand2.nextInt(ROTNUMBERS.length)];
+                        if (randrot1 == 0 && randrot2 == 0) {
+                            randrot1 = 360;
+                        }
+                        if (randrot1 == 360 && randrot2 == 360) {
+                            randrot1 = 0;
+                        }
+                        int SpriteNumber = new Random().nextInt(30) + 1;
+                        Debug.d(wallpaper.TAG, "RandSpriteNumber: " + SpriteNumber);
+                        if (SpriteNumber == 1) {
+                            wallpaper.this.rndball1 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.neongreenplanet, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 2) {
+                            wallpaper.this.rndball1 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.blueplanet, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 3) {
+                            wallpaper.this.rndball1 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.cyanplanet, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 4) {
+                            wallpaper.this.rndball1 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.ltblueplanet, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 5) {
+                            wallpaper.this.rndball1 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.bluepurpleplanet, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 6) {
+                            wallpaper.this.rndball1 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.redplanet, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 7) {
+                            wallpaper.this.rndball1 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.yellowplanet, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 8) {
+                            wallpaper.this.rndball1 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.orangeplanet, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 9) {
+                            wallpaper.this.rndball1 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.whiteplanet, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 10) {
+                            wallpaper.this.rndball1 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.grayplanet, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 11) {
+                            wallpaper.this.rndball1 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.greenplanet, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 12) {
+                            wallpaper.this.rndball1 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.ltgreenplanet, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 13) {
+                            wallpaper.this.rndball1 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.bluemoon, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 14) {
+                            wallpaper.this.rndball1 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.saturn, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 15) {
+                            wallpaper.this.rndball1 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.firefly, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 16) {
+                            wallpaper.this.rndball1 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.fly, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 17) {
+                            wallpaper.this.rndball1 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.moon, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 18) {
+                            wallpaper.this.rndball1 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.star, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 19) {
+                            wallpaper.this.rndball1 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.alien3, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 20) {
+                            wallpaper.this.rndball1 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.alien4, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 21) {
+                            wallpaper.this.rndball1 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.ufo, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 22) {
+                            wallpaper.this.rndball1 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.light, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 23) {
+                            wallpaper.this.rndball1 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.lighton, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 24) {
+                            wallpaper.this.rndball1 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.lightoff, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 25) {
+                            wallpaper.this.rndball1 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.mouse, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 26) {
+                            wallpaper.this.rndball1 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.asteroid1, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 27) {
+                            wallpaper.this.rndball1 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.asteroid2, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 28) {
+                            wallpaper.this.rndball1 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.asteroid3, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 29) {
+                            wallpaper.this.rndball1 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.asteroid4, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 30) {
+                            wallpaper.this.rndball1 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.asteroid5, wallpaper.this.getVertexBufferObjectManager());
+                        }
+                        PhysicsHandler physicsHandler = new PhysicsHandler(wallpaper.this.rndball1);
+                        wallpaper.this.rndball1.registerUpdateHandler(physicsHandler);
+                        wallpaper.this.rndball1.registerEntityModifier(new LoopEntityModifier(new RotationModifier(30.0f, (float) randrot1, (float) randrot2)));
+                        physicsHandler.setVelocity(10.0f * (wallpaper.this.random.nextFloat() - 0.5f), 10.0f * (wallpaper.this.random.nextFloat() - 0.5f));
+                        wallpaper.this.mScene.attachChild(wallpaper.this.rndball1);
+                    }
+                });
+                wallpaper.this.mEngine.runOnUpdateThread(new Runnable() {
+                    public void run() {
+                        if (wallpaper.this.rndball2 == null) {
+                            Debug.d(wallpaper.TAG, "rndball2 is null");
+                        } else {
+                            Debug.d(wallpaper.TAG, "removing rndball2");
+                            wallpaper.this.mScene.detachChild(wallpaper.this.rndball2);
+                            wallpaper.this.rndball2.detachSelf();
+                            wallpaper.this.rndball2.dispose();
+                            wallpaper.this.rndball2 = null;
+                        }
+                        Random rand1 = new Random();
+                        Random rand2 = new Random();
+                        int[] ROTNUMBERS = new int[]{0, 360};
+                        int randrot1 = ROTNUMBERS[rand1.nextInt(ROTNUMBERS.length)];
+                        int randrot2 = ROTNUMBERS[rand2.nextInt(ROTNUMBERS.length)];
+                        if (randrot1 == 0 && randrot2 == 0) {
+                            randrot1 = 360;
+                        }
+                        if (randrot1 == 360 && randrot2 == 360) {
+                            randrot1 = 0;
+                        }
+                        int SpriteNumber = new Random().nextInt(30) + 1;
+                        Debug.d(wallpaper.TAG, "RandSpriteNumber: " + SpriteNumber);
+                        if (SpriteNumber == 1) {
+                            wallpaper.this.rndball2 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.neongreenplanet, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 2) {
+                            wallpaper.this.rndball2 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.blueplanet, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 3) {
+                            wallpaper.this.rndball2 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.cyanplanet, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 4) {
+                            wallpaper.this.rndball2 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.ltblueplanet, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 5) {
+                            wallpaper.this.rndball2 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.bluepurpleplanet, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 6) {
+                            wallpaper.this.rndball2 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.redplanet, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 7) {
+                            wallpaper.this.rndball2 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.yellowplanet, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 8) {
+                            wallpaper.this.rndball2 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.orangeplanet, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 9) {
+                            wallpaper.this.rndball2 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.whiteplanet, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 10) {
+                            wallpaper.this.rndball2 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.grayplanet, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 11) {
+                            wallpaper.this.rndball2 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.greenplanet, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 12) {
+                            wallpaper.this.rndball2 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.ltgreenplanet, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 13) {
+                            wallpaper.this.rndball2 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.bluemoon, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 14) {
+                            wallpaper.this.rndball2 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.saturn, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 15) {
+                            wallpaper.this.rndball2 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.firefly, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 16) {
+                            wallpaper.this.rndball2 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.fly, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 17) {
+                            wallpaper.this.rndball2 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.moon, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 18) {
+                            wallpaper.this.rndball2 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.star, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 19) {
+                            wallpaper.this.rndball2 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.alien3, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 20) {
+                            wallpaper.this.rndball2 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.alien4, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 21) {
+                            wallpaper.this.rndball2 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.ufo, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 22) {
+                            wallpaper.this.rndball2 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.light, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 23) {
+                            wallpaper.this.rndball2 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.lighton, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 24) {
+                            wallpaper.this.rndball2 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.lightoff, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 25) {
+                            wallpaper.this.rndball2 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.mouse, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 26) {
+                            wallpaper.this.rndball2 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.asteroid1, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 27) {
+                            wallpaper.this.rndball2 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.asteroid2, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 28) {
+                            wallpaper.this.rndball2 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.asteroid3, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 29) {
+                            wallpaper.this.rndball2 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.asteroid4, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 30) {
+                            wallpaper.this.rndball2 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.asteroid5, wallpaper.this.getVertexBufferObjectManager());
+                        }
+                        PhysicsHandler physicsHandler = new PhysicsHandler(wallpaper.this.rndball2);
+                        wallpaper.this.rndball2.registerUpdateHandler(physicsHandler);
+                        wallpaper.this.rndball2.registerEntityModifier(new LoopEntityModifier(new RotationModifier(30.0f, (float) randrot1, (float) randrot2)));
+                        physicsHandler.setVelocity(10.0f * (wallpaper.this.random.nextFloat() - 0.5f), 10.0f * (wallpaper.this.random.nextFloat() - 0.5f));
+                        wallpaper.this.mScene.attachChild(wallpaper.this.rndball2);
+                    }
+                });
+                wallpaper.this.mEngine.runOnUpdateThread(new Runnable() {
+                    public void run() {
+                        if (wallpaper.this.rndball3 == null) {
+                            Debug.d(wallpaper.TAG, "rndball3 is null");
+                        } else {
+                            Debug.d(wallpaper.TAG, "removing rndball3");
+                            wallpaper.this.mScene.detachChild(wallpaper.this.rndball3);
+                            wallpaper.this.rndball3.detachSelf();
+                            wallpaper.this.rndball3.dispose();
+                            wallpaper.this.rndball3 = null;
+                        }
+                        Random rand1 = new Random();
+                        Random rand2 = new Random();
+                        int[] ROTNUMBERS = new int[]{0, 360};
+                        int randrot1 = ROTNUMBERS[rand1.nextInt(ROTNUMBERS.length)];
+                        int randrot2 = ROTNUMBERS[rand2.nextInt(ROTNUMBERS.length)];
+                        if (randrot1 == 0 && randrot2 == 0) {
+                            randrot1 = 360;
+                        }
+                        if (randrot1 == 360 && randrot2 == 360) {
+                            randrot1 = 0;
+                        }
+                        int SpriteNumber = new Random().nextInt(30) + 1;
+                        Debug.d(wallpaper.TAG, "RandSpriteNumber: " + SpriteNumber);
+                        if (SpriteNumber == 1) {
+                            wallpaper.this.rndball3 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.neongreenplanet, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 2) {
+                            wallpaper.this.rndball3 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.blueplanet, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 3) {
+                            wallpaper.this.rndball3 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.cyanplanet, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 4) {
+                            wallpaper.this.rndball3 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.ltblueplanet, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 5) {
+                            wallpaper.this.rndball3 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.bluepurpleplanet, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 6) {
+                            wallpaper.this.rndball3 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.redplanet, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 7) {
+                            wallpaper.this.rndball3 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.yellowplanet, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 8) {
+                            wallpaper.this.rndball3 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.orangeplanet, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 9) {
+                            wallpaper.this.rndball3 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.whiteplanet, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 10) {
+                            wallpaper.this.rndball3 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.grayplanet, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 11) {
+                            wallpaper.this.rndball3 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.greenplanet, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 12) {
+                            wallpaper.this.rndball3 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.ltgreenplanet, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 13) {
+                            wallpaper.this.rndball3 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.bluemoon, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 14) {
+                            wallpaper.this.rndball3 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.saturn, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 15) {
+                            wallpaper.this.rndball3 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.firefly, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 16) {
+                            wallpaper.this.rndball3 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.fly, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 17) {
+                            wallpaper.this.rndball3 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.moon, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 18) {
+                            wallpaper.this.rndball3 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.star, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 19) {
+                            wallpaper.this.rndball3 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.alien3, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 20) {
+                            wallpaper.this.rndball3 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.alien4, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 21) {
+                            wallpaper.this.rndball3 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.ufo, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 22) {
+                            wallpaper.this.rndball3 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.light, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 23) {
+                            wallpaper.this.rndball3 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.lighton, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 24) {
+                            wallpaper.this.rndball3 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.lightoff, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 25) {
+                            wallpaper.this.rndball3 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.mouse, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 26) {
+                            wallpaper.this.rndball3 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.asteroid1, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 27) {
+                            wallpaper.this.rndball3 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.asteroid2, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 28) {
+                            wallpaper.this.rndball3 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.asteroid3, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 29) {
+                            wallpaper.this.rndball3 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.asteroid4, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 30) {
+                            wallpaper.this.rndball3 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.asteroid5, wallpaper.this.getVertexBufferObjectManager());
+                        }
+                        PhysicsHandler physicsHandler = new PhysicsHandler(wallpaper.this.rndball3);
+                        wallpaper.this.rndball3.registerUpdateHandler(physicsHandler);
+                        wallpaper.this.rndball3.registerEntityModifier(new LoopEntityModifier(new RotationModifier(30.0f, (float) randrot1, (float) randrot2)));
+                        physicsHandler.setVelocity(10.0f * (wallpaper.this.random.nextFloat() - 0.5f), 10.0f * (wallpaper.this.random.nextFloat() - 0.5f));
+                        wallpaper.this.mScene.attachChild(wallpaper.this.rndball3);
+                    }
+                });
+                wallpaper.this.mEngine.runOnUpdateThread(new Runnable() {
+                    public void run() {
+                        if (wallpaper.this.rndball4 == null) {
+                            Debug.d(wallpaper.TAG, "rndball4 is null");
+                        } else {
+                            Debug.d(wallpaper.TAG, "removing rndball4");
+                            wallpaper.this.mScene.detachChild(wallpaper.this.rndball4);
+                            wallpaper.this.rndball4.detachSelf();
+                            wallpaper.this.rndball4.dispose();
+                            wallpaper.this.rndball4 = null;
+                        }
+                        Random rand1 = new Random();
+                        Random rand2 = new Random();
+                        int[] ROTNUMBERS = new int[]{0, 360};
+                        int randrot1 = ROTNUMBERS[rand1.nextInt(ROTNUMBERS.length)];
+                        int randrot2 = ROTNUMBERS[rand2.nextInt(ROTNUMBERS.length)];
+                        if (randrot1 == 0 && randrot2 == 0) {
+                            randrot1 = 360;
+                        }
+                        if (randrot1 == 360 && randrot2 == 360) {
+                            randrot1 = 0;
+                        }
+                        int SpriteNumber = new Random().nextInt(30) + 1;
+                        Debug.d(wallpaper.TAG, "RandSpriteNumber: " + SpriteNumber);
+                        if (SpriteNumber == 1) {
+                            wallpaper.this.rndball4 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.neongreenplanet, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 2) {
+                            wallpaper.this.rndball4 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.blueplanet, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 3) {
+                            wallpaper.this.rndball4 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.cyanplanet, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 4) {
+                            wallpaper.this.rndball4 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.ltblueplanet, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 5) {
+                            wallpaper.this.rndball4 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.bluepurpleplanet, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 6) {
+                            wallpaper.this.rndball4 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.redplanet, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 7) {
+                            wallpaper.this.rndball4 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.yellowplanet, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 8) {
+                            wallpaper.this.rndball4 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.orangeplanet, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 9) {
+                            wallpaper.this.rndball4 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.whiteplanet, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 10) {
+                            wallpaper.this.rndball4 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.grayplanet, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 11) {
+                            wallpaper.this.rndball4 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.greenplanet, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 12) {
+                            wallpaper.this.rndball4 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.ltgreenplanet, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 13) {
+                            wallpaper.this.rndball4 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.bluemoon, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 14) {
+                            wallpaper.this.rndball4 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.saturn, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 15) {
+                            wallpaper.this.rndball4 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.firefly, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 16) {
+                            wallpaper.this.rndball4 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.fly, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 17) {
+                            wallpaper.this.rndball4 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.moon, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 18) {
+                            wallpaper.this.rndball4 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.star, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 19) {
+                            wallpaper.this.rndball4 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.alien3, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 20) {
+                            wallpaper.this.rndball4 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.alien4, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 21) {
+                            wallpaper.this.rndball4 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.ufo, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 22) {
+                            wallpaper.this.rndball4 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.light, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 23) {
+                            wallpaper.this.rndball4 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.lighton, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 24) {
+                            wallpaper.this.rndball4 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.lightoff, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 25) {
+                            wallpaper.this.rndball4 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.mouse, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 26) {
+                            wallpaper.this.rndball4 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.asteroid1, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 27) {
+                            wallpaper.this.rndball4 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.asteroid2, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 28) {
+                            wallpaper.this.rndball4 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.asteroid3, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 29) {
+                            wallpaper.this.rndball4 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.asteroid4, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 30) {
+                            wallpaper.this.rndball4 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.asteroid5, wallpaper.this.getVertexBufferObjectManager());
+                        }
+                        PhysicsHandler physicsHandler = new PhysicsHandler(wallpaper.this.rndball4);
+                        wallpaper.this.rndball4.registerUpdateHandler(physicsHandler);
+                        wallpaper.this.rndball4.registerEntityModifier(new LoopEntityModifier(new RotationModifier(30.0f, (float) randrot1, (float) randrot2)));
+                        physicsHandler.setVelocity(10.0f * (wallpaper.this.random.nextFloat() - 0.5f), 10.0f * (wallpaper.this.random.nextFloat() - 0.5f));
+                        wallpaper.this.mScene.attachChild(wallpaper.this.rndball4);
+                    }
+                });
+                wallpaper.this.mEngine.runOnUpdateThread(new Runnable() {
+                    public void run() {
+                        if (wallpaper.this.rndball5 == null) {
+                            Debug.d(wallpaper.TAG, "rndball5 is null");
+                        } else {
+                            Debug.d(wallpaper.TAG, "removing rndball5");
+                            wallpaper.this.mScene.detachChild(wallpaper.this.rndball5);
+                            wallpaper.this.rndball5.detachSelf();
+                            wallpaper.this.rndball5.dispose();
+                            wallpaper.this.rndball5 = null;
+                        }
+                        Random rand1 = new Random();
+                        Random rand2 = new Random();
+                        int[] ROTNUMBERS = new int[]{0, 360};
+                        int randrot1 = ROTNUMBERS[rand1.nextInt(ROTNUMBERS.length)];
+                        int randrot2 = ROTNUMBERS[rand2.nextInt(ROTNUMBERS.length)];
+                        if (randrot1 == 0 && randrot2 == 0) {
+                            randrot1 = 360;
+                        }
+                        if (randrot1 == 360 && randrot2 == 360) {
+                            randrot1 = 0;
+                        }
+                        int SpriteNumber = new Random().nextInt(30) + 1;
+                        Debug.d(wallpaper.TAG, "RandSpriteNumber: " + SpriteNumber);
+                        if (SpriteNumber == 1) {
+                            wallpaper.this.rndball5 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.neongreenplanet, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 2) {
+                            wallpaper.this.rndball5 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.blueplanet, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 3) {
+                            wallpaper.this.rndball5 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.cyanplanet, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 4) {
+                            wallpaper.this.rndball5 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.ltblueplanet, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 5) {
+                            wallpaper.this.rndball5 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.bluepurpleplanet, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 6) {
+                            wallpaper.this.rndball5 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.redplanet, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 7) {
+                            wallpaper.this.rndball5 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.yellowplanet, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 8) {
+                            wallpaper.this.rndball5 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.orangeplanet, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 9) {
+                            wallpaper.this.rndball5 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.whiteplanet, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 10) {
+                            wallpaper.this.rndball5 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.grayplanet, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 11) {
+                            wallpaper.this.rndball5 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.greenplanet, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 12) {
+                            wallpaper.this.rndball5 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.ltgreenplanet, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 13) {
+                            wallpaper.this.rndball5 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.bluemoon, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 14) {
+                            wallpaper.this.rndball5 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.saturn, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 15) {
+                            wallpaper.this.rndball5 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.firefly, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 16) {
+                            wallpaper.this.rndball5 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.fly, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 17) {
+                            wallpaper.this.rndball5 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.moon, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 18) {
+                            wallpaper.this.rndball5 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.star, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 19) {
+                            wallpaper.this.rndball5 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.alien3, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 20) {
+                            wallpaper.this.rndball5 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.alien4, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 21) {
+                            wallpaper.this.rndball5 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.ufo, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 22) {
+                            wallpaper.this.rndball5 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.light, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 23) {
+                            wallpaper.this.rndball5 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.lighton, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 24) {
+                            wallpaper.this.rndball5 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.lightoff, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 25) {
+                            wallpaper.this.rndball5 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.mouse, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 26) {
+                            wallpaper.this.rndball5 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.asteroid1, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 27) {
+                            wallpaper.this.rndball5 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.asteroid2, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 28) {
+                            wallpaper.this.rndball5 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.asteroid3, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 29) {
+                            wallpaper.this.rndball5 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.asteroid4, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 30) {
+                            wallpaper.this.rndball5 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.asteroid5, wallpaper.this.getVertexBufferObjectManager());
+                        }
+                        PhysicsHandler physicsHandler = new PhysicsHandler(wallpaper.this.rndball5);
+                        wallpaper.this.rndball5.registerUpdateHandler(physicsHandler);
+                        wallpaper.this.rndball5.registerEntityModifier(new LoopEntityModifier(new RotationModifier(30.0f, (float) randrot1, (float) randrot2)));
+                        physicsHandler.setVelocity(10.0f * (wallpaper.this.random.nextFloat() - 0.5f), 10.0f * (wallpaper.this.random.nextFloat() - 0.5f));
+                        wallpaper.this.mScene.attachChild(wallpaper.this.rndball5);
+                    }
+                });
+                wallpaper.this.mEngine.runOnUpdateThread(new Runnable() {
+                    public void run() {
+                        if (wallpaper.this.rndball6 == null) {
+                            Debug.d(wallpaper.TAG, "rndball6 is null");
+                        } else {
+                            Debug.d(wallpaper.TAG, "removing rndball6");
+                            wallpaper.this.mScene.detachChild(wallpaper.this.rndball6);
+                            wallpaper.this.rndball6.detachSelf();
+                            wallpaper.this.rndball6.dispose();
+                            wallpaper.this.rndball6 = null;
+                        }
+                        Random rand1 = new Random();
+                        Random rand2 = new Random();
+                        int[] ROTNUMBERS = new int[]{0, 360};
+                        int randrot1 = ROTNUMBERS[rand1.nextInt(ROTNUMBERS.length)];
+                        int randrot2 = ROTNUMBERS[rand2.nextInt(ROTNUMBERS.length)];
+                        if (randrot1 == 0 && randrot2 == 0) {
+                            randrot1 = 360;
+                        }
+                        if (randrot1 == 360 && randrot2 == 360) {
+                            randrot1 = 0;
+                        }
+                        int SpriteNumber = new Random().nextInt(30) + 1;
+                        Debug.d(wallpaper.TAG, "RandSpriteNumber: " + SpriteNumber);
+                        if (SpriteNumber == 1) {
+                            wallpaper.this.rndball6 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.neongreenplanet, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 2) {
+                            wallpaper.this.rndball6 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.blueplanet, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 3) {
+                            wallpaper.this.rndball6 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.cyanplanet, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 4) {
+                            wallpaper.this.rndball6 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.ltblueplanet, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 5) {
+                            wallpaper.this.rndball6 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.bluepurpleplanet, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 6) {
+                            wallpaper.this.rndball6 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.redplanet, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 7) {
+                            wallpaper.this.rndball6 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.yellowplanet, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 8) {
+                            wallpaper.this.rndball6 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.orangeplanet, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 9) {
+                            wallpaper.this.rndball6 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.whiteplanet, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 10) {
+                            wallpaper.this.rndball6 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.grayplanet, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 11) {
+                            wallpaper.this.rndball6 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.greenplanet, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 12) {
+                            wallpaper.this.rndball6 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.ltgreenplanet, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 13) {
+                            wallpaper.this.rndball6 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.bluemoon, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 14) {
+                            wallpaper.this.rndball6 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.saturn, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 15) {
+                            wallpaper.this.rndball6 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.firefly, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 16) {
+                            wallpaper.this.rndball6 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.fly, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 17) {
+                            wallpaper.this.rndball6 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.moon, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 18) {
+                            wallpaper.this.rndball6 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.star, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 19) {
+                            wallpaper.this.rndball6 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.alien3, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 20) {
+                            wallpaper.this.rndball6 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.alien4, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 21) {
+                            wallpaper.this.rndball6 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.ufo, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 22) {
+                            wallpaper.this.rndball6 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.light, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 23) {
+                            wallpaper.this.rndball6 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.lighton, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 24) {
+                            wallpaper.this.rndball6 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.lightoff, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 25) {
+                            wallpaper.this.rndball6 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.mouse, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 26) {
+                            wallpaper.this.rndball6 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.asteroid1, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 27) {
+                            wallpaper.this.rndball6 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.asteroid2, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 28) {
+                            wallpaper.this.rndball6 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.asteroid3, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 29) {
+                            wallpaper.this.rndball6 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.asteroid4, wallpaper.this.getVertexBufferObjectManager());
+                        } else if (SpriteNumber == 30) {
+                            wallpaper.this.rndball6 = new Ball(wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_WIDTH), wallpaper.this.random.nextFloat() * ((float) wallpaper.CAMERA_HEIGHT), wallpaper.this.asteroid5, wallpaper.this.getVertexBufferObjectManager());
+                        }
+                        PhysicsHandler physicsHandler = new PhysicsHandler(wallpaper.this.rndball6);
+                        wallpaper.this.rndball6.registerUpdateHandler(physicsHandler);
+                        wallpaper.this.rndball6.registerEntityModifier(new LoopEntityModifier(new RotationModifier(30.0f, (float) randrot1, (float) randrot2)));
+                        physicsHandler.setVelocity(10.0f * (wallpaper.this.random.nextFloat() - 0.5f), 10.0f * (wallpaper.this.random.nextFloat() - 0.5f));
+                        wallpaper.this.mScene.attachChild(wallpaper.this.rndball6);
+                    }
+                });
+            }
+        }));
         pOnCreateSceneCallback.onCreateSceneFinished(this.mScene);
     }
 
