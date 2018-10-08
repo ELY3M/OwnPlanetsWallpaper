@@ -10,7 +10,7 @@ import org.andengine.engine.handler.timer.ITimerCallback;
 import org.andengine.engine.handler.timer.TimerHandler;
 import org.andengine.engine.options.EngineOptions;
 import org.andengine.engine.options.ScreenOrientation;
-import org.andengine.engine.options.resolutionpolicy.RatioResolutionPolicy;
+import org.andengine.engine.options.resolutionpolicy.FillResolutionPolicy;
 import org.andengine.entity.modifier.LoopEntityModifier;
 import org.andengine.entity.modifier.RotationModifier;
 import org.andengine.entity.scene.Scene;
@@ -211,7 +211,7 @@ public class wallpaper extends BaseLiveWallpaperService {
 
     public EngineOptions onCreateEngineOptions() {
         this.mCamera = new Camera(0.0f, 0.0f, (float) CAMERA_WIDTH, (float) CAMERA_HEIGHT);
-        return new EngineOptions(true, ScreenOrientation.PORTRAIT_FIXED, new RatioResolutionPolicy((float) CAMERA_WIDTH, (float) CAMERA_HEIGHT), this.mCamera);
+        return new EngineOptions(true, ScreenOrientation.PORTRAIT_FIXED, new FillResolutionPolicy(), this.mCamera);
     }
 
     public void onCreateResources(OnCreateResourcesCallback pOnCreateResourcesCallback) {
