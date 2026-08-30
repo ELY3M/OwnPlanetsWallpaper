@@ -24,7 +24,7 @@ class PlanetWallpaperService : WallpaperService() {
 
     inner class PlanetEngine : Engine() {
 
-        private val textures by lazy { TextureCache(assets) }
+        private val textures by lazy { TextureCache(resources, packageName) }
         private val renderer by lazy { WallpaperRenderer(textures) }
 
         private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
