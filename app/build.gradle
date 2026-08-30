@@ -6,7 +6,7 @@ android {
     buildToolsVersion "25.0.2"
     useLibrary 'org.apache.http.legacy'
     defaultConfig {
-        applicationId "own.ownplanetswallpaper"
+        applicationId "own.ownplanetswallpaper.ae"
         minSdkVersion 15
         targetSdkVersion 37
         versionCode 1

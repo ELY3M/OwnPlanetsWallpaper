@@ -1,4 +1,4 @@
-package own.ownplanetswallpaper;
+package own.ownplanetswallpaper.ae;
 
 import android.content.Context;
 import android.os.Bundle;
