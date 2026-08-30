@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
-    namespace = 'own.ownplanetswallpaper'
+    namespace = 'own.ownplanetswallpaper.ae'
     compileSdkVersion 37
     buildToolsVersion "25.0.2"
     useLibrary 'org.apache.http.legacy'
