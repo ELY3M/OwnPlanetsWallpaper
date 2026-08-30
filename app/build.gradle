@@ -1,10 +1,8 @@
 apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
 
 android {
     namespace = 'own.ownplanetswallpaper'
     compileSdkVersion 37
-    buildToolsVersion "25.0.2"
     defaultConfig {
         applicationId "own.ownplanetswallpaper"
         minSdkVersion 21
@@ -18,15 +16,13 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-    kotlinOptions {
-        jvmTarget = '1.8'
-    }
+
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
     }
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:2.1.21"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:2.4.10"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.11.0"
 }
