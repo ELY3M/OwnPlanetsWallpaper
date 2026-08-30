@@ -1,17 +1,16 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
 
 android {
     namespace = 'own.ownplanetswallpaper'
     compileSdkVersion 37
     buildToolsVersion "25.0.2"
-    useLibrary 'org.apache.http.legacy'
     defaultConfig {
         applicationId "own.ownplanetswallpaper"
-        minSdkVersion 15
+        minSdkVersion 21
         targetSdkVersion 37
-        versionCode 1
-        versionName "1.1"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        versionCode 2
+        versionName "2.0"
     }
     buildTypes {
         release {
@@ -19,20 +18,15 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-}
-
-configurations.all {
-    resolutionStrategy {
-        force 'androidx.vectordrawable:vectordrawable:1.1.0'
-        force 'androidx.vectordrawable:vectordrawable-animated:1.1.0'
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
     }
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    //androidTestimplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
-    //    exclude group: 'com.android.support', module: 'support-annotations'
-    //})
-    implementation 'com.android.support:appcompat-v7:28.0.0'
-    //testimplementation 'junit:junit:4.13.2'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:2.1.21"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0"
 }
