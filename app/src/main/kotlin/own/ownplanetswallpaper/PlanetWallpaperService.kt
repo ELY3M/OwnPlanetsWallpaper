@@ -11,6 +11,7 @@ import kotlinx.coroutines.cancel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
+import kotlin.time.Duration.Companion.milliseconds
 
 /**
  * Live wallpaper service — Canvas-based Kotlin rewrite of the AndEngine version.
@@ -36,19 +37,29 @@ class PlanetWallpaperService : WallpaperService() {
             renderer.onSurfaceChanged(width, height)
         }
 
+
         override fun onVisibilityChanged(visible: Boolean) {
             super.onVisibilityChanged(visible)
             isVisible = visible
-            if (visible) startDrawing() else stopDrawing()
+            if (visible) {
+                Log.i("PlanetWallpaperService","onVisibilityChanged() - visible")
+                startDrawing()
+            } else {
+                Log.i("PlanetWallpaperService","onVisibilityChanged() - not visible")
+                stopDrawing()
+            }
         }
+
 
         override fun onSurfaceDestroyed(holder: SurfaceHolder) {
             super.onSurfaceDestroyed(holder)
+            Log.i("PlanetWallpaperService","onSurfaceDestroyed()")
             stopDrawing()
         }
 
         override fun onDestroy() {
             super.onDestroy()
+            Log.i("PlanetWallpaperService","onDestory()")
             stopDrawing()
             scope.cancel()
             textures.recycle()
@@ -59,7 +70,8 @@ class PlanetWallpaperService : WallpaperService() {
             drawJob = scope.launch {
                 while (isActive && isVisible) {
                     drawFrame()
-                    delay(16L)
+                    delay(1L.milliseconds)
+                    ///delay(16L.milliseconds)
                 }
             }
         }

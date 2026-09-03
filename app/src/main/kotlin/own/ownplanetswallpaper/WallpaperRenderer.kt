@@ -5,6 +5,7 @@ import android.graphics.Matrix
 import android.graphics.Paint
 import android.graphics.Rect
 import android.graphics.RectF
+import android.util.Log
 import kotlin.random.Random
 
 /**
@@ -19,8 +20,8 @@ import kotlin.random.Random
  */
 class WallpaperRenderer(
     private val textures: TextureCache,
-    private val sceneWidth: Int = 600,
-    private val sceneHeight: Int = 800
+    private val sceneWidth: Int = 1600,
+    private val sceneHeight: Int = 1800
 ) {
     private val spriteAssets = listOf(
         "element1.png", "element2.png", "element3.png", "element4.png", "element5.png",
@@ -85,6 +86,7 @@ class WallpaperRenderer(
         if (now - lastSwapNs >= swapIntervalNs) {
             fillRandomSlots()
             lastSwapNs = now
+            Log.i("WallpaperRenderer", "draw() reloading");
         }
 
         canvas.save()
