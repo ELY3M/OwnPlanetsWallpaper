@@ -18,11 +18,8 @@ import kotlin.random.Random
  *
  * Rendering uses Android [Canvas]; no OpenGL or third-party engine required.
  */
-class WallpaperRenderer(
-    private val textures: TextureCache,
-    private val sceneWidth: Int = 1600,
-    private val sceneHeight: Int = 1800
-) {
+class WallpaperRenderer(private val textures: TextureCache, private val sceneWidth: Int, private val sceneHeight: Int)
+{
     private val spriteAssets = listOf(
         "element1.png", "element2.png", "element3.png", "element4.png", "element5.png",
         "element6.png", "element7.png", "element8.png", "element9.png", "element10.png",
