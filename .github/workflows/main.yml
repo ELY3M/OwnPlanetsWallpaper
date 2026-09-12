@@ -68,7 +68,7 @@ jobs:
           
           
       - name: test
-        run: apksigner
+        run: $ANDROID_HOME/build-tools/34.0.0/apksigner
         
       - name: Output Signed APK
         run:  echo 'Signed APK is ${{ steps.sign_app.outputs.signedReleaseFile }}' 
