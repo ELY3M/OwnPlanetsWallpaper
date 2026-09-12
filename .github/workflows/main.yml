@@ -53,18 +53,22 @@ jobs:
          # BUILD_TOOL_VERSION=$(ls /usr/local/lib/android/sdk/build-tools/ | tail -n 1)
          # echo "BUILD_TOOL_VERSION=$BUILD_TOOL_VERSION" >> $GITHUB_ENV
          # echo Last build tool version is: $BUILD_TOOL_VERSION
-       
-      - name: Sign APK
-        uses: r0adkll/sign-android-release@v1
-        id: sign_app
-        with:
-          releaseDirectory: app/build/outputs/apk/release/
-          signingKeyBase64: ${{ secrets.KEY }}
-          alias: ${{ secrets.ALIAS }}
-          keyStorePassword: ${{ secrets.PASSWORD }}
-          keyPassword: ${{ secrets.PASSWORD }}
+  
+      # - name: Sign APK
+        # uses: r0adkll/sign-android-release@v1
+        # id: sign_app
+        # with:
+          # releaseDirectory: app/build/outputs/apk/release/
+          # signingKeyBase64: ${{ secrets.KEY }}
+          # alias: ${{ secrets.ALIAS }}
+          # keyStorePassword: ${{ secrets.PASSWORD }}
+          # keyPassword: ${{ secrets.PASSWORD }}
         # env:
           # BUILD_TOOLS_VERSION: ${{ env.BUILD_TOOL_VERSION }}
+          
+          
+      - name: test
+        run: apksigner
         
       - name: Output Signed APK
         run:  echo 'Signed APK is ${{ steps.sign_app.outputs.signedReleaseFile }}' 
